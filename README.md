@@ -1,7 +1,7 @@
 # Password-Generator
 
-a python script that generates random passwords using the dictionary
+a python script that generates random passwords using the dictionary, inspired by an xkcd comic.
 
-![Picture](http://imgs.xkcd.com/comics/password_strength.png)
+![Picture](./xkcd-comic.png)
 
 # Instructions
