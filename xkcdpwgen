@@ -1,0 +1,89 @@
+#!/usr/bin/python3
+
+import argparse
+import random
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument('-w', '--words', metavar='WORDS', type=int, 
+		    help='include WORDS words in the password (default = 4)', 
+		    default=4)
+
+parser.add_argument('-c', '--caps', metavar='CAPS', type=int,
+		    help='capitalize the first letter of CAPS random words (default = 0)',
+		    default=0)
+
+parser.add_argument('-n', '--numbers', metavar='NUMBERS', type=int,
+		    help='insert NUMBERS random numbers into the password (default = 0)',
+		    default=0)
+		    
+parser.add_argument('-s', '--symbols', metavar='SYMBOLS', type=int,
+		    help='insert SYMBOLS random symbols into the password (default = 0)',
+		    default=0)
+		    
+args = parser.parse_args()
+
+
+capscount=args.caps
+numberscount=args.numbers
+symbolscount=args.symbols
+
+numberslist= ['0','1','2','3','4','5','6','7','8','9'] #0-9
+symbolslist= ['~','!','@','#','$','%','^','&','*','.',':',';'] #0-11
+
+s = ''
+
+with open('words.txt', 'r') as file:
+	words = list(map(str, file.read().split()))
+	for x in range(args.words):
+		temp = ''
+		randcaps = random.randint(0,1)
+		randnumber1 = random.randint(0,1)
+		randnumber2 = random.randint(0,1)
+		randsymbol1 = random.randint(0,1)
+		randsymbol2 = random.randint(0,1)
+		if (capscount>0 and capscount == (args.words - x)): #must insert caps
+			capscount = capscount - 1
+			temp = temp + random.choice(words).capitalize()
+		elif(capscount > 0): #choice insert caps
+			if (randcaps == 0):
+				capscount = capscount - 1
+				temp = temp + random.choice(words).capitalize()
+			else:
+				temp = temp + random.choice(words)
+		else:
+			temp = temp + random.choice(words)
+		if (numberscount>0 and numberscount == (args.words - x)): #must insert nums
+			if (randnumber2 == 0):
+				numberscount = numberscount - 1
+				temp = temp + random.choice(numberslist)
+			else:
+				numberscount = numberscount - 1
+				temp = random.choice(numberslist) + temp
+		elif(numberscount > 0):
+			if (randnumber1 == 0):
+				if (randnumber2 == 0):
+					numberscount = numberscount - 1
+					temp = temp + random.choice(numberslist)
+				else:
+					numberscount = numberscount - 1
+					temp = random.choice(numberslist) + temp
+		if (symbolscount>0 and symbolscount == (args.words - x)): #must insert symbols
+			if (randsymbol2 == 0):
+				symbolscount = symbolscount - 1
+				temp = temp + random.choice(symbolslist)
+			else:
+				symbolscount = symbolscount - 1
+				temp = random.choice(symbolslist) + temp
+		elif (symbolscount > 0):
+			if (randsymbol1 == 0):
+				if (randsymbol2 == 0):
+					symbolscount = symbolscount - 1
+					temp = temp + random.choice(symbolslist)
+				else:
+					symbolscount = symbolscount - 1
+					temp = random.choice(symbolslist) + temp
+		s = s + temp
+
+print(s)		
+
