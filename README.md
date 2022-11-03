@@ -12,5 +12,7 @@ inspired by an xkcd comic.
 2. Navigate to home directory of the repo on your local device
 3. Run ./xkcdpwgen for a default password, or ./xkcdpwgen -h for customization menu
 
+Note: Make sure a python3 interpretor is installed on your host!
+
 ![Picture](./instruction.png)
 ![Picture](./instruction2.png)
